@@ -22,21 +22,32 @@
           inherit system overlays;
         };
 
+        show-version = false;
+
         # --- 1. Configuration ---
         # Add the names of the shells you want to activate by default.
         # These names must correspond to the attributes in `shells` below.
         enabledEnvironments = [
           "rust"
-          "nodejs"
-        ]; # e.g., [ "rust" "nodejs" ]
+          "c_cpp"
+          # "nodejs"
+        ];
 
         # --- 2. Import modular shell configurations ---
         # Each file should return a derivation from `pkgs.mkShell`.
         shells = {
-          rust = import ./nix/rust.nix { inherit pkgs; };
-          nodejs = import ./nix/nodejs.nix { inherit pkgs; };
-          # You can add more shells here, e.g.:
-          # python = import ./nix/python.nix { inherit pkgs; };
+          rust = import ./nix/rust.nix {
+            inherit show-version;
+            inherit pkgs;
+          };
+          c_cpp = import ./nix/c_cpp.nix {
+            inherit show-version;
+            inherit pkgs;
+          };
+          nodejs = import ./nix/nodejs.nix {
+            inherit show-version;
+            inherit pkgs;
+          };
         };
 
         # --- 3. Logic to merge enabled environments ---

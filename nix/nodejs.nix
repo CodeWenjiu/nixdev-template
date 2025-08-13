@@ -1,4 +1,7 @@
-{ pkgs }:
+{
+  pkgs,
+  show-version ? true,
+}:
 
 pkgs.mkShell {
   name = "nodejs-dev-shell";
@@ -10,6 +13,8 @@ pkgs.mkShell {
 
   shellHook = ''
     echo "👋 Node.js development environment activated!"
+  ''
+  + pkgs.lib.optionalString show-version ''
     echo "Node version: $(node --version)"
     echo "NPM version: $(npm --version)"
   '';

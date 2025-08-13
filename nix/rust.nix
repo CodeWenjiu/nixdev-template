@@ -1,4 +1,7 @@
-{ pkgs }:
+{
+  pkgs,
+  show-version ? true,
+}:
 
 pkgs.mkShell {
   name = "rust-dev-shell";
@@ -12,8 +15,10 @@ pkgs.mkShell {
 
   shellHook = ''
     echo "🦀 Rust development environment activated!"
+    export RUST_BACKTRACE=1
+  ''
+  + pkgs.lib.optionalString show-version ''
     echo "Rust version: $(rustc --version)"
     echo "Cargo version: $(cargo --version)"
-    export RUST_BACKTRACE=1
   '';
 }
