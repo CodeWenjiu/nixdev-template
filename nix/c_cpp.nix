@@ -9,9 +9,9 @@ pkgs.mkShell {
   buildInputs = with pkgs; [
     xmake
 
-    clang
-    clang-tools
-    lldb
+    llvmPackages_21.clang
+    llvmPackages_21.clang-tools
+    llvmPackages_21.lldb
     pkg-config
   ];
 
